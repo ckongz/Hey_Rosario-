@@ -1,15 +1,15 @@
-================================================================================
+====================================================
 BARANGAY ROSARIO WEBSITE - COMPLETE DOCUMENTATION
-================================================================================
+====================================================
 
 PROJECT: Hey Rosario! - Digital Platform for Barangay Sto. Rosario
 VERSION: 1.0
 DATE: February 18, 2026
 DEVELOPERS: Casey Ong, Abygale, Ayenne, Prince
 
-================================================================================
+====================================================
 TABLE OF CONTENTS
-================================================================================
+====================================================
 1. Project Overview
 2. System Requirements
 3. Installation Instructions
@@ -23,9 +23,9 @@ TABLE OF CONTENTS
 11. Troubleshooting
 12. Technical Specifications
 
-================================================================================
+==================================================
 1. PROJECT OVERVIEW
-================================================================================
+==================================================
 
 Hey Rosario! is a comprehensive web-based digital platform for Barangay Sto. 
 Rosario, Angeles City. The system provides:
