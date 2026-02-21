@@ -5,11 +5,10 @@ BARANGAY ROSARIO WEBSITE - COMPLETE DOCUMENTATION
 PROJECT: Hey Rosario! - Digital Platform for Barangay Sto. Rosario
 VERSION: 1.0
 DATE: February 18, 2026
-DEVELOPERS: Casey Ong, Abygale, Ayenne, Prince
+DEVELOPERS: Casey, Abygale, Ayenne, Prince
 
-====================================================
 TABLE OF CONTENTS
-====================================================
+
 1. Project Overview
 2. System Requirements
 3. Installation Instructions
@@ -23,9 +22,7 @@ TABLE OF CONTENTS
 11. Troubleshooting
 12. Technical Specifications
 
-==================================================
 1. PROJECT OVERVIEW
-==================================================
 
 Hey Rosario! is a comprehensive web-based digital platform for Barangay Sto. 
 Rosario, Angeles City. The system provides:
@@ -39,9 +36,7 @@ Rosario, Angeles City. The system provides:
 - User authentication with role-based access
 - Admin dashboard for management
 
-================================================================================
 2. SYSTEM REQUIREMENTS
-================================================================================
 
 SERVER REQUIREMENTS:
 - PHP 7.4 or higher
@@ -54,9 +49,7 @@ DEVELOPMENT ENVIRONMENT:
 - Modern web browser (Chrome, Firefox, Edge)
 - Text editor (VS Code, Sublime Text, etc.)
 
-================================================================================
-3. INSTALLATION INSTRUCTIONS
-================================================================================
+3. INSTALLATION
 
 STEP 1: Extract Files
 - Extract the barangay_rosario.zip file to your web server directory
@@ -86,9 +79,7 @@ STEP 5: Access Website
 - Homepage: http://localhost/barangay_rosario/
 - Admin Login: http://localhost/barangay_rosario/login.php
 
-================================================================================
-4. DATABASE SETUP
-================================================================================
+4. DATEBASE SETUP
 
 DATABASE NAME: barangay_rosario
 
@@ -112,9 +103,7 @@ RELATIONSHIPS:
 - services.service_id → service_applications.service_id (CASCADE)
 - All foreign keys properly indexed for performance
 
-================================================================================
 5. FILE STRUCTURE
-================================================================================
 
 barangay_rosario/
 ├── assets/
@@ -165,9 +154,7 @@ barangay_rosario/
 │
 └── database-schema.sql (Complete database structure)
 
-================================================================================
 6. TEST ACCOUNTS
-================================================================================
 
 ADMIN ACCOUNTS (Login via login.php or admin-login.php):
 
@@ -215,9 +202,7 @@ CITIZEN ACCOUNTS:
    Status: Pending
    Access: Limited until verified
 
-================================================================================
 7. FEATURES OVERVIEW
-================================================================================
 
 USER AUTHENTICATION & MANAGEMENT:
 ✓ Secure login with password hashing (bcrypt)
@@ -273,9 +258,7 @@ TRANSPARENCY PORTAL:
 ✓ Financial transparency
 ✓ Document repository
 
-================================================================================
 8. CODE ARCHITECTURE
-================================================================================
 
 DATABASE CONNECTION (includes/db-connection.php):
 - Uses PDO for secure database operations
@@ -316,10 +299,8 @@ SECURITY FEATURES:
 - Login attempt tracking
 - Activity logging
 
-================================================================================
-9. SECURITY IMPLEMENTATION
-================================================================================
-
+9. SECURITY
+    
 PASSWORD SECURITY:
 - All passwords hashed using PHP's password_hash() with bcrypt
 - Cost factor: 10 (default)
@@ -353,9 +334,7 @@ SESSION SECURITY:
 - Secure session configuration
 - HttpOnly cookies (recommended to enable)
 
-================================================================================
-10. GROUP MEMBER RESPONSIBILITIES
-================================================================================
+10. GROUP ROLES
 
 CASEY ONG - Project Lead & Frontend Developer
 Responsibilities:
@@ -423,9 +402,7 @@ Defense Topics:
 - Authentication and security
 - File upload processing
 
-================================================================================
 11. TROUBLESHOOTING
-================================================================================
 
 COMMON ISSUES:
 
@@ -464,9 +441,7 @@ Solution:
 - Verify upload_max_filesize in php.ini
 - Ensure form has enctype="multipart/form-data"
 
-================================================================================
-12. TECHNICAL SPECIFICATIONS
-================================================================================
+12. TECHNICAL
 
 PROGRAMMING LANGUAGES:
 - PHP 7.4+ (Backend)
@@ -517,9 +492,7 @@ SECURITY STANDARDS:
 - XSS Prevention: Output escaping
 - Session Management: Timeout-based
 
-================================================================================
-TESTING CHECKLIST
-================================================================================
+TESTING
 
 Before submitting or presenting:
 
@@ -544,9 +517,7 @@ Before submitting or presenting:
 □ Error messages display appropriately
 □ Success messages show after actions
 
-================================================================================
 PRESENTATION NOTES
-================================================================================
 
 RECOMMENDED DEMO FLOW:
 
@@ -577,9 +548,7 @@ RECOMMENDED DEMO FLOW:
    - Session management
    - Form processing
 
-================================================================================
 CONTACT & SUPPORT
-================================================================================
 
 For questions or issues:
 - Check this documentation first
@@ -593,6 +562,4 @@ Development Team:
 - Ayenne: Database Administrator
 - Prince: Backend Developer
 
-================================================================================
-END OF DOCUMENTATION
-================================================================================
+
