@@ -1,0 +1,45 @@
+<?php
+session_start();
+require_once '../includes/db-connection.php';
+
+// Check if admin is logged in
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+    header('Location: ../login.php?error=Unauthorized access');
+    exit();
+}
+
+// Check if form was submitted
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header('Location: ../admin-dashboard.php?error=Invalid request method');
+    exit();
+}
+
+$report_id = filter_var($_POST['report_id'] ?? 0, FILTER_VALIDATE_INT);
+$status = $_POST['status'] ?? '';
+
+if (!$report_id) {
+    header('Location: ../admin-dashboard.php?error=Invalid report ID');
+    exit();
+}
+
+$valid_statuses = ['Pending', 'In Progress', 'Resolved', 'Rejected'];
+if (!in_array($status, $valid_statuses)) {
+    header('Location: ../admin-dashboard.php?error=Invalid status');
+    exit();
+}
+
+try {
+    $stmt = $pdo->prepare("UPDATE reports SET status = ?, updated_at = NOW() WHERE report_id = ?");
+    $stmt->execute([$status, $report_id]);
+    
+    if ($stmt->rowCount() > 0) {
+        header("Location: ../admin-dashboard.php?success=Report status updated to " . urlencode($status));
+    } else {
+        header("Location: ../admin-dashboard.php?error=Report not found");
+    }
+    
+} catch (PDOException $e) {
+    error_log("Report update error: " . $e->getMessage());
+    header("Location: ../admin-dashboard.php?error=Database error occurred");
+}
+exit();

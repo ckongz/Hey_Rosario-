@@ -1,0 +1,110 @@
+<?php
+session_start();
+require_once '../includes/db-connection.php';
+require_once '../includes/session-check.php';
+requireAdmin();
+
+header('Content-Type: application/json');
+$action = $_POST['action'] ?? $_GET['action'] ?? '';
+$type   = $_POST['type']   ?? $_GET['type']   ?? '';
+$id     = (int)($_POST['id'] ?? $_GET['id'] ?? 0);
+
+try {
+    switch("$type:$action") {
+        // ANNOUNCEMENTS
+        case 'announcement:create':
+            $title   = sanitizeInput($_POST['title'] ?? '');
+            $content = $_POST['content'] ?? '';
+            $cat     = $_POST['category'] ?? 'General';
+            $pinned  = isset($_POST['is_pinned']) ? 1 : 0;
+            $slug    = strtolower(preg_replace('/[^a-z0-9]+/','-',$title)).'-'.time();
+            $ok = dbInsert("INSERT INTO announcements (title,slug,content,summary,category,author_id,is_pinned) VALUES (?,?,?,?,?,?,?)",
+                [$title,$slug,$content,substr(strip_tags($content),0,200),$cat,$_SESSION['admin_id']??1,$pinned]);
+            logActivity($pdo,'Announcement Created',$title);
+            echo json_encode(['success'=>(bool)$ok,'id'=>$ok,'message'=>$ok?'Announcement published':'Failed']);
+            break;
+        case 'announcement:delete':
+            $ok = dbExec("DELETE FROM announcements WHERE announcement_id=?",[$id]);
+            logActivity($pdo,'Announcement Deleted','ID:'.$id);
+            echo json_encode(['success'=>$ok,'message'=>$ok?'Deleted':'Failed']);
+            break;
+
+        // TOURISM SPOTS
+        case 'tourism:create':
+            $name  = sanitizeInput($_POST['name'] ?? '');
+            $slug  = strtolower(preg_replace('/[^a-z0-9]+/','-',$name)).'-'.time();
+            $ok = dbInsert("INSERT INTO tourism_spots (name,slug,description,short_description,category,address,operating_hours,entrance_fee,emoji,is_featured) VALUES (?,?,?,?,?,?,?,?,?,?)",
+                [$name,$slug,$_POST['description']??'',substr($_POST['description']??'',0,200),$_POST['category']??'Other',$_POST['address']??'',$_POST['operating_hours']??'',$_POST['entrance_fee']??'',$_POST['emoji']??'📍',isset($_POST['is_featured'])?1:0]);
+            echo json_encode(['success'=>(bool)$ok,'message'=>$ok?'Spot added':'Failed']);
+            break;
+        case 'tourism:delete':
+            $ok = dbExec("DELETE FROM tourism_spots WHERE spot_id=?",[$id]);
+            echo json_encode(['success'=>$ok,'message'=>$ok?'Deleted':'Failed']);
+            break;
+
+        // SERVICES
+        case 'service:create':
+            $code  = 'SVC-'.str_pad(rand(100,999),3,'0',STR_PAD_LEFT);
+            $ok = dbInsert("INSERT INTO services (service_code,service_name,description,requirements,processing_time,fee,is_free,category) VALUES (?,?,?,?,?,?,?,?)",
+                [$code,sanitizeInput($_POST['service_name']??''),$_POST['description']??'',$_POST['requirements']??'',$_POST['processing_time']??'Same Day',(float)($_POST['fee']??0),(float)($_POST['fee']??0)===0.0?1:0,$_POST['category']??'Other']);
+            echo json_encode(['success'=>(bool)$ok,'message'=>$ok?'Service added':'Failed']);
+            break;
+        case 'service:delete':
+            $ok = dbExec("DELETE FROM services WHERE service_id=?",[$id]);
+            echo json_encode(['success'=>$ok,'message'=>$ok?'Deleted':'Failed']);
+            break;
+
+        // EMERGENCY CONTACTS
+        case 'emergency:create':
+            $ok = dbInsert("INSERT INTO emergency_contacts (department,agency_name,contact_number,mobile_number,category,priority,operating_hours) VALUES (?,?,?,?,?,?,?)",
+                [sanitizeInput($_POST['department']??''),sanitizeInput($_POST['agency_name']??''),sanitizeInput($_POST['contact_number']??''),sanitizeInput($_POST['mobile_number']??''),$_POST['category']??'Other',(int)($_POST['priority']??0),sanitizeInput($_POST['operating_hours']??'')]);
+            echo json_encode(['success'=>(bool)$ok,'message'=>$ok?'Contact added':'Failed']);
+            break;
+        case 'emergency:delete':
+            $ok = dbExec("DELETE FROM emergency_contacts WHERE contact_id=?",[$id]);
+            echo json_encode(['success'=>$ok,'message'=>$ok?'Deleted':'Failed']);
+            break;
+
+        // MESSAGES
+        case 'message:read':
+            dbExec("UPDATE contact_messages SET is_read=1,read_by=?,read_at=NOW() WHERE message_id=?",[$_SESSION['admin_id']??1,$id]);
+            echo json_encode(['success'=>true]);
+            break;
+        case 'message:reply':
+            $reply = $_POST['reply_message'] ?? '';
+            dbExec("UPDATE contact_messages SET replied=1,reply_message=?,replied_by=?,replied_at=NOW() WHERE message_id=?",[$reply,$_SESSION['admin_id']??1,$id]);
+            echo json_encode(['success'=>true,'message'=>'Reply saved']);
+            break;
+        case 'message:delete':
+            $ok = dbExec("DELETE FROM contact_messages WHERE message_id=?",[$id]);
+            echo json_encode(['success'=>$ok]);
+            break;
+
+        // OFFICIALS
+        case 'official:create':
+            $ok = dbInsert("INSERT INTO officials (name,position,committee,initials,contact_number,sort_order) VALUES (?,?,?,?,?,?)",
+                [sanitizeInput($_POST['name']??''),sanitizeInput($_POST['position']??''),sanitizeInput($_POST['committee']??''),sanitizeInput(strtoupper($_POST['initials']??'')),sanitizeInput($_POST['contact_number']??''),(int)($_POST['sort_order']??0)]);
+            echo json_encode(['success'=>(bool)$ok,'message'=>$ok?'Official added':'Failed']);
+            break;
+        case 'official:delete':
+            $ok = dbExec("DELETE FROM officials WHERE official_id=?",[$id]);
+            echo json_encode(['success'=>$ok,'message'=>$ok?'Deleted':'Failed']);
+            break;
+
+        // BUDGET ITEMS
+        case 'budget:create':
+            $ok = dbInsert("INSERT INTO budget_items (fiscal_year,category,sub_category,description,allocated_amount,expended_amount,project_status,completion_percentage,implementation_period) VALUES (?,?,?,?,?,?,?,?,?)",
+                [(int)($_POST['fiscal_year']??date('Y')),$_POST['category']??'Other',$_POST['sub_category']??'',$_POST['description']??'',(float)($_POST['allocated_amount']??0),(float)($_POST['expended_amount']??0),$_POST['project_status']??'Planning',(int)($_POST['completion_percentage']??0),$_POST['implementation_period']??'']);
+            echo json_encode(['success'=>(bool)$ok,'message'=>$ok?'Budget item added':'Failed']);
+            break;
+        case 'budget:delete':
+            $ok = dbExec("DELETE FROM budget_items WHERE budget_id=?",[$id]);
+            echo json_encode(['success'=>$ok,'message'=>$ok?'Deleted':'Failed']);
+            break;
+
+        default:
+            echo json_encode(['success'=>false,'message'=>'Unknown action: '.$type.':'.$action]);
+    }
+} catch(Exception $e) {
+    echo json_encode(['success'=>false,'message'=>'Error: '.$e->getMessage()]);
+}

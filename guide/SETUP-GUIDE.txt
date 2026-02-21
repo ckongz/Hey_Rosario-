@@ -1,0 +1,193 @@
+╔═══════════════════════════════════════════════════════════════╗
+║    BARANGAY ROSARIO - COMPLETE SETUP GUIDE                    ║
+║    Deep Red & Cream Palette with Full Functionality           ║
+╚═══════════════════════════════════════════════════════════════╝
+
+📦 WHAT'S INCLUDED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✓ Deep Red (#69000E) and Cream (#E4ACAB) Color Palette
+✓ Floating Navbar with Hamburger Menu
+✓ All Tabs Working (Home, About, Services, Report, Updates, etc.)
+✓ Admin Dashboard with Sidebar Layout
+✓ Complete Database Integration
+✓ Login/Registration System
+✓ Beautiful Gradients and Hover Effects
+✓ Responsive Design
+✓ Full CRUD Operations for Admin
+
+🚀 INSTALLATION STEPS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1: EXTRACT FILES
+----------------------
+1. Extract the ZIP file
+2. Copy the 'barangay_rosario' folder to:
+   • Windows XAMPP: C:\xampp\htdocs\
+   • Mac XAMPP: /Applications/XAMPP/htdocs/
+   • Linux: /opt/lampp/htdocs/
+
+STEP 2: START XAMPP
+--------------------
+1. Open XAMPP Control Panel
+2. Start Apache
+3. Start MySQL
+
+STEP 3: CREATE DATABASE
+------------------------
+1. Open browser: http://localhost/phpmyadmin
+2. Click "New" in left sidebar
+3. Database name: barangay_rosario_db
+4. Collation: utf8mb4_general_ci
+5. Click "Create"
+
+STEP 4: IMPORT DATABASE
+------------------------
+1. Select barangay_rosario_db from left sidebar
+2. Click "Import" tab
+3. Choose file: database-schema.sql (from project folder)
+4. Click "Go"
+5. Wait for success message
+
+STEP 5: VERIFY SETUP
+---------------------
+1. Open: http://localhost/barangay_rosario/
+2. You should see the homepage with deep red theme
+
+🔑 TEST ACCOUNTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ADMIN ACCOUNT:
+Email: admin@barangayrosario.com
+Password: password
+
+CITIZEN ACCOUNT:
+Email: citizen1@email.com
+Password: password
+
+📂 FILE STRUCTURE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+barangay_rosario/
+├── assets/
+│   ├── css/
+│   │   └── styles.css         ← Deep red & cream palette
+│   ├── js/
+│   │   └── script.js          ← Hamburger menu functionality
+│   ├── images/
+│   └── uploads/
+│       ├── ids/               ← User ID uploads
+│       └── reports/           ← Report evidence photos
+├── includes/
+│   ├── db-connection.php      ← Database connection
+│   ├── header.php             ← HTML head with navbar
+│   ├── footer.php             ← Footer with details
+│   ├── navbar.php             ← Floating navbar with hamburger
+│   └── session-check.php      ← Session management
+├── processes/
+│   ├── login-process.php      ← Login handler
+│   ├── register-process.php   ← Registration handler
+│   ├── logout.php             ← Logout handler
+│   ├── submit-report.php      ← Report submission
+│   ├── contact-form-process.php
+│   └── admin-report-update.php
+├── admin/
+│   └── approve-user.php       ← User approval/rejection
+├── index.php                  ← Homepage
+├── about.php                  ← About page
+├── services.php               ← Services page
+├── report.php                 ← Citizen reporting
+├── updates.php                ← Announcements
+├── emergency.php              ← Emergency hotlines
+├── tourism.php                ← Tourism guide
+├── transparency.php           ← Transparency portal
+├── contact.php                ← Contact form
+├── login.php                  ← Login page
+├── register.php               ← Registration page
+├── dashboard.php              ← Citizen dashboard
+├── admin-dashboard.php        ← Admin dashboard with sidebar
+├── privacy.php                ← Privacy policy
+├── terms.php                  ← Terms of service
+└── database-schema.sql        ← Complete database
+
+🎨 COLOR PALETTE IMPLEMENTED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Primary Colors:
+• Deepest Red: #69000E (headers, navigation, primary buttons)
+• Dark Accent: #260000 (footer, dark backgrounds)
+• Medium Red: #A74238 (secondary elements, links)
+• Soft Red: #BC7863 (hover states, accents)
+• Cream: #E4ACAB (cards, containers, soft backgrounds)
+• Background Cream: #FFF8E7 (page background)
+• Pure White: #FFFFFF (content, contrast)
+
+Pastel Hover Colors:
+• Soft Pink: #FFD1D1 (card hovers)
+• Peach Cream: #FFE5D9 (section highlights)
+• Lavender: #E6E6FA (menu hovers)
+• Soft Mint: #E0F2E0 (success states)
+• Vanilla: #FFF2CC (warnings, pending)
+
+✨ KEY FEATURES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+NAVBAR:
+✓ Floating with glassmorphism effect
+✓ Hamburger menu that slides from right
+✓ Menu items with icons
+✓ Dynamic items based on user role
+✓ Smooth animations
+
+ADMIN DASHBOARD:
+✓ Left sidebar with navigation
+✓ Statistics cards at top
+✓ Pending user verification table
+✓ Recent reports management
+✓ Inline status updates
+✓ Action buttons with hover effects
+
+ALL PAGES:
+✓ Consistent deep red theme
+✓ Gradient backgrounds
+✓ Hover effects with pastel transitions
+✓ Responsive design
+✓ Working navigation
+✓ Database integration
+
+🔧 TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Problem: Blank white page
+Solution: Check XAMPP is running, verify database connection
+
+Problem: CSS not loading
+Solution: Check file paths in header.php, use browser inspector
+
+Problem: Can't login
+Solution: Verify database imported correctly, check test accounts
+
+Problem: Database connection error
+Solution: Verify database name is barangay_rosario_db
+
+Problem: Images not uploading
+Solution: Check uploads folder permissions (chmod 755)
+
+Problem: Hamburger menu not working
+Solution: Ensure script.js is loading (check browser console)
+
+📧 SUPPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+For issues or questions:
+1. Check XAMPP error logs
+2. Enable PHP error reporting temporarily
+3. Use browser console to check JavaScript errors
+4. Verify all file paths are correct
+
+🎉 YOU'RE ALL SET!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Visit: http://localhost/barangay_rosario/
+Login with admin account to access full functionality
+Explore all tabs and features!
+

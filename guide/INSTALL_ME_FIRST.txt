@@ -1,0 +1,203 @@
+================================================================================
+🚀 BARANGAY ROSARIO - INSTALLATION INSTRUCTIONS
+================================================================================
+
+⚠️ IMPORTANT: Follow these steps EXACTLY in order!
+
+================================================================================
+STEP 1: EXTRACT FILES
+================================================================================
+
+Extract the barangay_rosario folder to your web server:
+- For XAMPP: C:\xampp\htdocs\barangay_rosario
+- For WAMP: C:\wamp64\www\barangay_rosario
+
+Make sure the folder is named exactly "barangay_rosario"
+
+================================================================================
+STEP 2: START YOUR WEB SERVER
+================================================================================
+
+1. Start XAMPP or WAMP Control Panel
+2. Start Apache
+3. Start MySQL
+4. Wait until both show "Running"
+
+================================================================================
+STEP 3: IMPORT DATABASE
+================================================================================
+
+1. Open your browser and go to: http://localhost/phpmyadmin
+2. Click on "Import" tab at the top
+3. Click "Choose File" button
+4. Navigate to: barangay_rosario/database-schema.sql
+5. Click "Go" button at the bottom
+6. Wait for "Import has been successfully finished"
+
+✅ The database "barangay_rosario" is now created with sample data!
+
+================================================================================
+STEP 4: HASH THE PASSWORDS (CRITICAL!)
+================================================================================
+
+The database has plain text passwords that need to be hashed.
+
+Option A - Automatic (Recommended):
+1. Open browser: http://localhost/barangay_rosario/hash_passwords.php
+2. You'll see success messages for each account
+3. Done! Passwords are now hashed and secure
+
+Option B - Manual (If Option A doesn't work):
+1. Open phpMyAdmin: http://localhost/phpmyadmin
+2. Click "barangay_rosario" database on the left
+3. Click "SQL" tab at the top
+4. Copy and paste this SQL command:
+
+   UPDATE admins SET password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi' WHERE email = 'admin@heyrosario.com';
+   UPDATE admins SET password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi' WHERE email = 'captain@heyrosario.com';
+   UPDATE admins SET password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi' WHERE email = 'staff1@heyrosario.com';
+   UPDATE admins SET password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi' WHERE email = 'staff2@heyrosario.com';
+   UPDATE users SET password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi' WHERE email = 'citizen1@email.com';
+   UPDATE users SET password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi' WHERE email = 'citizen2@email.com';
+   UPDATE users SET password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi' WHERE email = 'pendinguser@email.com';
+
+5. Click "Go"
+6. If using Option B, all passwords become: password
+
+================================================================================
+STEP 5: CONFIGURE DATABASE CONNECTION (if needed)
+================================================================================
+
+Only do this if your MySQL has a password!
+
+1. Open: barangay_rosario/includes/db-connection.php
+2. Find this line: define('DB_PASS', '');
+3. Change to: define('DB_PASS', 'your_mysql_password');
+4. Save the file
+
+================================================================================
+STEP 6: ACCESS THE WEBSITE
+================================================================================
+
+Open your browser and go to:
+http://localhost/barangay_rosario/
+
+You should see the homepage with deep red and cream colors!
+
+================================================================================
+STEP 7: LOGIN AND TEST
+================================================================================
+
+🔐 TEST ACCOUNTS:
+
+ADMIN ACCOUNTS (Login at: http://localhost/barangay_rosario/login.php):
+┌─────────────────────────────────┬──────────────────┬──────────────┐
+│ Email                           │ Password         │ Role         │
+├─────────────────────────────────┼──────────────────┼──────────────┤
+│ admin@heyrosario.com            │ Admin123!        │ Admin        │
+│ captain@heyrosario.com          │ Captain123!      │ Captain      │
+│ staff1@heyrosario.com           │ Staff123!        │ Staff        │
+│ staff2@heyrosario.com           │ Staff123!        │ Staff        │
+└─────────────────────────────────┴──────────────────┴──────────────┘
+
+Note: If you used Option B in Step 4, all passwords are: password
+
+CITIZEN ACCOUNTS:
+┌─────────────────────────────────┬──────────────────┬──────────────┐
+│ Email                           │ Password         │ Status       │
+├─────────────────────────────────┼──────────────────┼──────────────┤
+│ citizen1@email.com              │ Citizen123!      │ Verified     │
+│ citizen2@email.com              │ Citizen123!      │ Verified     │
+│ pendinguser@email.com           │ Pending123!      │ Pending      │
+└─────────────────────────────────┴──────────────────┴──────────────┘
+
+Note: If you used Option B in Step 4, all passwords are: password
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+Problem: "Database connection failed"
+Solution: 
+  - Make sure MySQL is running in XAMPP/WAMP
+  - Check includes/db-connection.php has correct password
+  - Database name must be: barangay_rosario
+
+Problem: "Invalid credentials" when logging in
+Solution:
+  - Make sure you ran Step 4 (hash_passwords.php)
+  - Try using: password (if you used Option B)
+  - Check email is spelled correctly
+  - Passwords are case-sensitive!
+
+Problem: "Cannot find hash_passwords.php"
+Solution:
+  - Make sure you extracted the full folder
+  - File is in: barangay_rosario/hash_passwords.php
+  - Use Option B from Step 4 instead
+
+Problem: CSS not loading (page looks plain)
+Solution:
+  - Clear browser cache (Ctrl + F5)
+  - Check folder name is exactly: barangay_rosario
+  - Make sure Apache is running
+
+Problem: "Call to undefined function password_hash()"
+Solution:
+  - Your PHP version is too old (need PHP 5.5+)
+  - Update XAMPP/WAMP to latest version
+
+================================================================================
+WHAT TO EXPECT
+================================================================================
+
+✅ Homepage with deep red (#8B0000) and cream (#FFF8E7) colors
+✅ Floating navbar with glassmorphism effect
+✅ Hamburger menu on mobile
+✅ Service cards with pastel hover effects
+✅ Working login system
+✅ Admin dashboard with user management
+✅ Report submission and tracking
+✅ Announcements page with sample data
+✅ Emergency hotlines directory
+✅ Tourism guide
+✅ Transparency portal with budget data
+
+================================================================================
+TESTING CHECKLIST
+================================================================================
+
+□ Homepage loads with correct colors
+□ Can login as admin@heyrosario.com
+□ Admin dashboard shows statistics
+□ Can see user list in admin dashboard
+□ Can login as citizen1@email.com
+□ Citizen dashboard shows
+□ Can submit a report
+□ Services page shows 5 services
+□ Updates page shows 3 announcements
+□ Emergency page shows hotlines
+□ Tourism page shows 3 spots
+□ Transparency page shows budget items
+□ Logout works correctly
+
+================================================================================
+NEXT STEPS
+================================================================================
+
+1. Test all the accounts above
+2. Explore the admin dashboard
+3. Submit a test report as a citizen
+4. Check the comprehensive README.txt for full documentation
+5. Prepare your presentation using the demo flow in README.txt
+
+================================================================================
+NEED HELP?
+================================================================================
+
+1. Read README.txt for detailed documentation
+2. Check the troubleshooting section above
+3. Verify all steps were completed in order
+4. Make sure XAMPP/WAMP is fully running
+
+Good luck! 🚀

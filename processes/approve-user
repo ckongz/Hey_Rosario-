@@ -1,0 +1,51 @@
+<?php
+session_start();
+require_once '../includes/db-connection.php';
+
+// Check if admin is logged in
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+    header('Location: ../login.php?error=Unauthorized access');
+    exit();
+}
+
+// Check if ID and action are provided
+if (!isset($_GET['id']) || !isset($_GET['action'])) {
+    header('Location: ../admin-dashboard.php?error=Invalid request');
+    exit();
+}
+
+$user_id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+$action = $_GET['action'];
+
+if (!$user_id) {
+    header('Location: ../admin-dashboard.php?error=Invalid user ID');
+    exit();
+}
+
+if (!in_array($action, ['approve', 'reject'])) {
+    header('Location: ../admin-dashboard.php?error=Invalid action');
+    exit();
+}
+
+try {
+    if ($action === 'approve') {
+        $stmt = $pdo->prepare("UPDATE users SET verification_status = 'verified', updated_at = NOW() WHERE user_id = ?");
+        $success_message = "User has been approved successfully";
+    } else {
+        $stmt = $pdo->prepare("UPDATE users SET verification_status = 'rejected', updated_at = NOW() WHERE user_id = ?");
+        $success_message = "User has been rejected";
+    }
+    
+    $stmt->execute([$user_id]);
+    
+    if ($stmt->rowCount() > 0) {
+        header("Location: ../admin-dashboard.php?success=" . urlencode($success_message));
+    } else {
+        header("Location: ../admin-dashboard.php?error=User not found or already processed");
+    }
+    
+} catch (PDOException $e) {
+    error_log("User approval error: " . $e->getMessage());
+    header("Location: ../admin-dashboard.php?error=Database error occurred");
+}
+exit();
